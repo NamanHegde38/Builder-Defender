@@ -5,8 +5,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour {
 
     public static Enemy Create(Vector3 position) {
-        var pfEnemy = Resources.Load<Transform>("pfEnemy");
-        var enemyTransform = Instantiate(pfEnemy, position, Quaternion.identity);
+        var enemyTransform = Instantiate(GameAssets.Instance.pfEnemy, position, Quaternion.identity);
 
         var enemy = enemyTransform.GetComponent<Enemy>();
         return enemy;
@@ -32,10 +31,15 @@ public class Enemy : MonoBehaviour {
 
     private void HealthSystem_OnDamaged(object sender, EventArgs e) {
         SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
+        CinemachineShake.Instance.ShakeCamera(3f, .1f);
+        ChromaticAberrationEffect.Instance.SetWeight(0.25f);
     }
 
     private void HealthSystem_OnDied(object sender, EventArgs e) {
         SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyDie);
+        CinemachineShake.Instance.ShakeCamera(7f, .15f);
+        ChromaticAberrationEffect.Instance.SetWeight(0.5f);
+        Instantiate(GameAssets.Instance.pfEnemyDieParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
@@ -49,7 +53,7 @@ public class Enemy : MonoBehaviour {
         if (building != null) {
             var healthSystem = building.GetComponent<HealthSystem>();
             healthSystem.Damage(10);
-            Destroy(gameObject);
+            _healthSystem.Damage(999);
         }
     }
 

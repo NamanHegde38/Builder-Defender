@@ -89,6 +89,16 @@ public class BuildingManager : MonoBehaviour {
             }
         }
 
+        /*if (buildingType.hasResourceGeneratorData) {
+            var resourceGeneratorData = buildingType.resourceGeneratorData;
+            var nearbyResourceAmount = ResourceGenerator.GetNearbyResourceAmount(resourceGeneratorData, transform.position);
+
+            if (nearbyResourceAmount <= 0) {
+                errorMessage = "There are no nearby Resource Nodes!";
+                return false;
+            }
+        }*/
+
         const float maxConstructionRadius = 25f;
         collider2DArray = Physics2D.OverlapCircleAll(position, maxConstructionRadius);        
         

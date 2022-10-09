@@ -4,7 +4,7 @@ using UnityEngine;
 public class ArrowProjectile : MonoBehaviour {
     
     public static ArrowProjectile Create(Vector3 position, Enemy enemy) {
-        var pfArrowProjectile = Resources.Load<Transform>("pfArrowProjectile");
+        var pfArrowProjectile = GameAssets.Instance.pfArrowProjectile;
         var arrowTransform = Instantiate(pfArrowProjectile, position, Quaternion.identity);
 
         var arrowProjectile = arrowTransform.GetComponent<ArrowProjectile>();

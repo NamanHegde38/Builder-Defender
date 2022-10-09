@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 public class HealthSystem : MonoBehaviour {
 
+    public event EventHandler OnHealthAmountMaxChanged;
     public event EventHandler OnDamaged;
     public event EventHandler OnHealed;
     public event EventHandler OnDied;
@@ -65,5 +66,7 @@ public class HealthSystem : MonoBehaviour {
         if (updateHealthAmount) {
             _healthAmount = amountMax;
         }
+        
+        OnHealthAmountMaxChanged?.Invoke(this, EventArgs.Empty);
     }
 }
